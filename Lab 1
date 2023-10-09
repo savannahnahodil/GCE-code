@@ -148,3 +148,185 @@ i_t_Sun = 143
 
 #solar abundances lab with imputs
 
+
+
+# \\\\\\\\\\ Modify below \\\\\\\\\\\\
+# ====================================
+
+# Number of SNe Ia per units of stellar mass formed.
+# For every solar mass of stars formed, there will be statistically nb_1a_per_m SNe Ia.
+# Original value --> 1.0e-1
+nb_1a_per_m = 2.2e-3
+
+# ====================================
+# ////////// Modify above ////////////
+
+# Run the GCE code OMEGA+
+op = omega_plus.omega_plus(nb_1a_per_m=nb_1a_per_m, **kwargs)
+
+# Get source contributions
+m_el_all, m_el_agb, m_el_massive, m_el_sn1a, m_el_nsm = \
+    get_individual_sources(op.inner, i_step_sol=i_t_Sun)
+
+
+# Set figure
+fig = plt.figure(figsize=(8,4))
+matplotlib.rcParams.update({'font.size': 16.0})
+
+# Plot solar abundance data
+plt.plot(solar_Z, solar_ab, color='k', marker='o', linewidth=6, alpha=0.5, label='Solar')
+
+# Plot contribution from Type Ia supernovae
+plt.plot(Z_charge, m_el_sn1a, color='g', label='SNe Ia', alpha=0.8, linestyle='-', marker='s')
+
+# Add element annotations (iron-peak)
+Z_low, Z_upp = 20, 30
+for i in range(Z_low, Z_upp+1):
+    plt.annotate(elements[i], xy=(solar_Z[i],yy[i]), color='k',\
+                 fontsize=15, ha='center', va='center')
+    
+# Label, legend, and axis
+plt.legend(fontsize=16, loc='center left', bbox_to_anchor=(1, 0.5))
+plt.xlabel('Z (charge number)', fontsize=16)
+plt.ylabel('X (mass fraction)', fontsize=16)
+plt.xlim(Z_low-0.5, Z_upp+0.5)
+plt.ylim(1e-9,3e-1)
+plt.yscale('log')
+
+# Frame tuning
+plt.subplots_adjust(top=0.95)
+plt.subplots_adjust(right=0.75)
+plt.subplots_adjust(left=0.15)
+plt.subplots_adjust(bottom=0.14)
+plt.show()
+
+
+# \\\\\\\\\\ Modify below \\\\\\\\\\\\
+# ====================================
+
+# Number of r-process events per units of stellar mass formed.
+# Original value --> 1.0e-6
+nb_nsm_per_m = 2.3e-5
+
+# ====================================
+# ////////// Modify above ////////////
+
+# Run the GCE code OMEGA+
+op = omega_plus.omega_plus(nb_nsm_per_m=nb_nsm_per_m, **kwargs)
+
+# Get source contributions
+m_el_all, m_el_agb, m_el_massive, m_el_sn1a, m_el_nsm = \
+    get_individual_sources(op.inner, i_step_sol=i_t_Sun)
+
+# Set figure
+fig = plt.figure(figsize=(12,4))
+matplotlib.rcParams.update({'font.size': 16.0})
+
+# Plot solar abundance data
+plt.plot(solar_Z, solar_ab, color='k', marker='o', linewidth=6, alpha=0.5, label='Solar')
+
+# Contribution of the s-process (AGB stars)
+plt.plot(Z_charge, m_el_agb, color='r', label='s-process (AGB)', alpha=0.8, linestyle='-', marker='x')
+
+# Contribution of the r-process
+plt.plot(Z_charge, m_el_nsm, color='c', label='r-process', alpha=0.8, linestyle='-', marker='^')
+
+# Add element annotations (lanthanides)
+Z_low, Z_upp = 50, 80
+for i in range(Z_low, Z_upp+1):
+    plt.annotate(elements[i], xy=(solar_Z[i],yy[i]), color='k',\
+                 fontsize=15, ha='center', va='center')
+    
+# Label, legend, and axis
+plt.legend(fontsize=16, loc='center left', bbox_to_anchor=(1, 0.5))
+plt.xlabel('Z (charge number)', fontsize=16)
+plt.ylabel('X (mass fraction)', fontsize=16)
+plt.xlim(Z_low-0.5, Z_upp+0.5)
+plt.ylim(1e-11,1e-6)
+plt.yscale('log')
+
+# Frame tuning
+plt.subplots_adjust(top=0.95)
+plt.subplots_adjust(right=0.75)
+plt.subplots_adjust(left=0.15)
+plt.subplots_adjust(bottom=0.14)
+plt.show()
+
+
+
+# \\\\\\\\\\ Modify below \\\\\\\\\\\\
+# ====================================
+
+# Number of SNe Ia per units of stellar mass formed.
+# For every solar mass of stars formed, there will be statistically nb_1a_per_m SNe Ia.
+nb_1a_per_m = 2.2e-3
+
+# Number of r-process events per units of stellar mass formed.
+nb_nsm_per_m = 2.3e-5
+
+# ====================================
+# ////////// Modify above ////////////
+
+# Run the GCE code OMEGA+
+op = omega_plus.omega_plus(nb_1a_per_m=nb_1a_per_m, nb_nsm_per_m=nb_nsm_per_m, **kwargs)
+
+# Get source contributions
+m_el_all, m_el_agb, m_el_massive, m_el_sn1a, m_el_nsm = \
+    get_individual_sources(op.inner, i_step_sol=i_t_Sun)
+
+
+
+
+# \\\\\\\\\\ Modify below \\\\\\\\\\\\
+# ====================================
+
+# Select the range of elements (atomic numbers) you want to plot
+Z_low, Z_upp = 30, 70
+# NOTE: You might want to modify plt.ylim(..) below.
+
+# ====================================
+# ////////// Modify above ////////////
+
+# Set figure
+fig = plt.figure(figsize=(12,4.0))
+matplotlib.rcParams.update({'font.size': 16.0})
+
+# Plot solar abundance data
+plt.plot(solar_Z, solar_ab, color='k', marker='o', linewidth=6, alpha=0.5, label='Solar')
+
+# All sources combined
+plt.plot(Z_charge, m_el_all, color='orange', label='All sources', alpha=1.0, linestyle='-', linewidth=2)
+
+# Contribution of Type Ia supernovae
+plt.plot(Z_charge, m_el_sn1a, color='g', label='SNe Ia', alpha=0.8, linestyle='-', marker='s')
+
+# Contribution of massive stars (core-collapse supernovae)
+plt.plot(Z_charge, m_el_massive, color='b', label='Massive stars', alpha=0.8, linestyle='-', marker='^')
+
+# Contribution of AGB stars
+plt.plot(Z_charge, m_el_agb, color='r', label='AGB stars', alpha=0.8, linestyle='-', marker='x')
+
+# Contribution of the r-process
+plt.plot(Z_charge, m_el_nsm, color='c', label='r-process', alpha=0.8, linestyle='-', marker='s')
+
+# Add element annotations (lanthanides)
+for i in range(Z_low, Z_upp+1):
+    plt.annotate(elements[i], xy=(solar_Z[i],yy[i]), color='k',\
+                 fontsize=15, ha='center', va='center')
+    
+# Label, legend, and axis
+plt.legend(fontsize=16, loc='center left', bbox_to_anchor=(1, 0.5))
+plt.xlabel('Z (charge number)', fontsize=16)
+plt.ylabel('X (mass fraction)', fontsize=16)
+plt.xlim(Z_low-0.5, Z_upp+0.5)
+plt.ylim(1e-10,1)
+plt.yscale('log')
+
+# Frame tuning
+plt.subplots_adjust(top=0.95)
+plt.subplots_adjust(right=0.75)
+plt.subplots_adjust(left=0.15)
+plt.subplots_adjust(bottom=0.14)
+plt.show()
+
+
