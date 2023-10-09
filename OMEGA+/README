@@ -1,0 +1,34 @@
+Public JINA Python Chemical Evolution Environment
+
+This repository contains a series of multi-zone galactic chemical evolution codes written in Python 3. It represents an extension of the NuPyCEE package (see also our website) and the end point of the JINA-NuGrid chemical evolution pipeline (see Côté et al. 2017a).
+
+OMEGA+ (Côté et al. 2018):
+
+2-zone model including a galactic (star-forming gas) and circumgalactic (hot gas reservoir) components.
+Star formation based on the balance between gas inflows and stellar feedback.
+Chemical evolution of the galactic component calculated by OMEGA (One-zone Model for the Evolution of GAlaxies, Côté et al. 2017b), a code part of NuPyCEE.
+
+GAMMA (Galaxy Assembly with Merger-trees for Modeling Abundances, Côté et al. 2018):
+
+Semi-analytic code following the mass assembly of galaxies based on merger trees provided by cosmological simulations.
+Evolution of each building-block galaxy (each branch of the merger tree) calculated by OMEGA+, a code part of JINAPyCEE.
+Please see the caga open-source analysis codes to use GAMMA on top of Caterpillar merger trees (see Griffen et al. 2016).
+
+       
+Requirement:
+
+NuPyCEE to access the chemical evolution functions.
+ytree if you want to read consistent-tree files for GAMMA.
+Userguides: See the DOC directory.
+
+Acknowledgments: Please cite the references stated above when using codes from this repository.
+
+If you have questions, comments, or want to report a problem, please contact Benoit Côté (bcote@uvic.ca, benoit.cote@csfk.mta.hu).
+
+Installation Instructions:
+Go in the directory with a terminal where the NuPyCEE directory is located (not in the NuPyCEE directory itself).
+Clone the GitHub repository:
+git clone https://github.com/becot85/JINAPyCEE.git
+From the same directory which contains the cloned NuPyCEE and JINAPyCEE directories, you can import the codes in Python mode by typing:
+from JINAPyCEE import omega_plus
+from JINAPyCEE import gamma
